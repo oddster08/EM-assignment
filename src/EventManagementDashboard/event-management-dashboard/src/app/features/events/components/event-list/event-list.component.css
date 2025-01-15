@@ -1,0 +1,55 @@
+/* src/app/event-list/event-list.component.css */
+
+.event-header {
+  margin-bottom: 2rem;
+}
+
+.event-search {
+  margin-bottom: 1.5rem;
+}
+
+.event-card {
+  margin-bottom: 1rem;
+}
+
+.event-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.event-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Status-specific styles */
+.status-upcoming {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+}
+
+.status-ongoing {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+}
+
+.status-completed {
+  background-color: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .event-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-actions {
+    margin-top: 1rem;
+  }
+}

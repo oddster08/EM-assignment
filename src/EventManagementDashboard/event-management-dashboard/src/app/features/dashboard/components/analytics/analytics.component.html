@@ -1,0 +1,59 @@
+<div class="container text-center mt-5">
+  <!-- Title Section -->
+  <div class="card shadow-lg p-4 rounded-3" style="background: #ffffff">
+    <h3 class="text-primary fw-bold">Event Analytics</h3>
+
+    <p class="text-muted mb-1">
+      Total Events: <span class="fw-semibold text-dark">{{ totalEvents }}</span>
+    </p>
+    <p class="text-muted">
+      Next Upcoming Event:
+      <span class="fw-semibold text-dark">
+        {{ upcomingEvent?.name || "N/A" }}
+      </span>
+    </p>
+
+    <!-- Chart Section -->
+    <div class="chart-container mt-4 position-relative">
+      <canvas
+        id="eventStatusChart"
+        class="shadow-lg rounded"
+        style="background: #f8f9fa; border-radius: 20px"
+      ></canvas>
+    </div>
+
+    <!-- Event Status Breakdown -->
+    <div class="mt-4">
+      <h5 class="fw-bold text-secondary">Event Status Breakdown</h5>
+      <div class="d-flex justify-content-around mt-3">
+        <div class="text-center">
+          <i
+            class="bi bi-calendar-check text-success"
+            style="font-size: 2rem"
+          ></i>
+          <p class="text-muted">
+            Completed:
+            <span class="fw-semibold">{{ eventStatusCounts.Completed }}</span>
+          </p>
+        </div>
+        <div class="text-center">
+          <i class="bi bi-calendar text-warning" style="font-size: 2rem"></i>
+          <p class="text-muted">
+            Ongoing:
+            <span class="fw-semibold">{{ eventStatusCounts.Ongoing }}</span>
+          </p>
+        </div>
+        <div class="text-center">
+          <i
+            class="bi bi-calendar-plus text-primary"
+            style="font-size: 2rem"
+          ></i>
+          <p class="text-muted">
+            Upcoming:
+            <span class="fw-semibold">{{ eventStatusCounts.Upcoming }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    container_name: event-management-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://eventuser:eventpass@mongodb:27017/event-management
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongodb
+    networks:
+      - event-network
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: event-management-db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=event-management
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongodb/init:/docker-entrypoint-initdb.d
+    networks:
+      - event-network
+    restart: unless-stopped
+
+networks:
+  event-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local

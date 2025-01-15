@@ -1,0 +1,40 @@
+<!-- Header Section -->
+<header class="bg-primary text-white p-4 shadow-md">
+  <div class="flex justify-between items-center container mx-auto">
+    <!-- Logo/Title -->
+    <h1 class="font-bold text-black" style="font-size: 3rem">
+      <i class="bi bi-calendar-event me-2"></i>Event Management
+    </h1>
+
+    <!-- Button Container -->
+    <div class="flex gap-4 ml-auto">
+      <!-- Login Icon and Theme Toggle -->
+      <div class="flex items-center space-x-10">
+        <!-- Login Icon -->
+        <button class="text-white hover:text-gray-300" (click)="login()">
+          <i class="bi bi-person-circle text-2xl"></i>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button (click)="toggleTheme()" class="theme-toggle-btn">
+          <i
+            class="bi text-2xl"
+            [ngClass]="isDarkMode ? 'bi-sun' : 'bi-moon'"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content Section (Your Events List, etc.) -->
+<main class="container mx-auto my-8">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer Section -->
+<footer class="bg-gray-800 text-white p-4 mt-8">
+  <div class="container mx-auto text-center">
+    <p>&copy; 2025 Event Management. All rights reserved.</p>
+  </div>
+</footer>

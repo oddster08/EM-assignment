@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card p-4">
+        <div class="card-body">
+          <h2 class="card-title mb-4 d-flex align-items-center">
+            <i class="bi bi-calendar-event me-2 text-primary"></i>
+            {{ isEditMode ? "Edit" : "Create" }} Event
+          </h2>
+
+          <form [formGroup]="eventForm" (ngSubmit)="submitForm()">
+            <div class="mb-4">
+              <label for="eventName" class="form-label">
+                <i class="bi bi-pencil-square me-2"></i>Event Name
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="eventName"
+                formControlName="name"
+                placeholder="Enter event name"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="eventDate" class="form-label">
+                <i class="bi bi-clock me-2"></i>Event Date & Time
+              </label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="eventDate"
+                formControlName="dateTime"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="location" class="form-label">
+                <i class="bi bi-geo-alt me-2"></i>Location
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                placeholder="Enter location"
+                formControlName="location"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="status" class="form-label">
+                <i class="bi bi-flag me-2"></i>Event Status
+              </label>
+              <select class="form-select" id="status" formControlName="status">
+                <option value="Upcoming">Upcoming</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="eventForm.invalid"
+              >
+                <i class="bi bi-check2-circle me-2"></i
+                >{{ isEditMode ? "Update" : "Create" }} Event
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="deleteEvent()"
+              >
+                <i class="bi bi-trash me-2"></i>Delete Event
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

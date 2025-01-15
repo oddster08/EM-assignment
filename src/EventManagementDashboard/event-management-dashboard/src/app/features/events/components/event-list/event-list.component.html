@@ -1,0 +1,152 @@
+<div class="py-4 min-h-screen bg-gray-50">
+  <div class="container mx-auto px-4">
+    <!-- Header Section -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4"
+    >
+      <!-- <h1 class="text-2xl md:text-3xl font-bold text-primary mb-4 md:mb-0">
+        <i class="bi bi-calendar-event me-2"></i>Event Management
+      </h1> -->
+
+      <div class="flex justify-between items-center mb-4 gap-4">
+        <button
+          class="btn btn-primary rounded-pill px-4 py-2"
+          (click)="createEvent()"
+        >
+          <i class="bi bi-plus-lg me-2"></i>Create Event
+        </button>
+
+        <button
+          class="btn btn-success rounded-pill px-4 py-2"
+          (click)="navigateToAnalytics()"
+        >
+          <i class="bi bi-bar-chart me-2"></i>Analytics
+        </button>
+        <button
+          class="btn btn-primary rounded-pill px-4 py-2"
+          (click)="exportToExcel()"
+        >
+          <i class="bi bi-file-earmark-spreadsheet me-2"></i>Export to Excel
+        </button>
+        <button
+          class="btn btn-primary rounded-pill px-4 py-2"
+          (click)="exportToCSV()"
+        >
+          <i class="bi bi-file-earmark-text me-2"></i>Export to CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="grid md:grid-cols-3 gap-4 mb-4">
+      <div class="md:col-span-2">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control border-start-0 rounded-end"
+            placeholder="Search by Event Name or Location"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+      </div>
+      <div>
+        <select
+          class="form-select"
+          [(ngModel)]="filterStatus"
+          (change)="onFilter()"
+        >
+          <option value="">All Events</option>
+          <option value="Upcoming">Upcoming</option>
+          <option value="Ongoing">Ongoing</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Event Cards -->
+    <div class="space-y-4">
+      <div
+        *ngFor="
+          let event of filteredEvents
+            | paginate : { itemsPerPage: 5, currentPage: currentPage }
+        "
+        class="card shadow-sm hover:shadow-md transition-shadow"
+      >
+        <div
+          class="card-body d-flex justify-content-between align-items-center p-4"
+        >
+          <div class="d-flex align-items-center gap-4">
+            <div
+              [ngClass]="{
+                'bg-success-subtle': event.status === 'Upcoming',
+                'bg-primary-subtle': event.status === 'Ongoing',
+                'bg-secondary-subtle': event.status === 'Completed'
+              }"
+              class="p-3 rounded-circle"
+            >
+              <i
+                class="bi bi-calendar-event fs-4"
+                [ngClass]="{
+                  'text-success': event.status === 'Upcoming',
+                  'text-primary': event.status === 'Ongoing',
+                  'text-secondary': event.status === 'Completed'
+                }"
+              ></i>
+            </div>
+
+            <div>
+              <h5 class="card-title mb-1">{{ event.name }}</h5>
+              <div class="text-muted mb-2">
+                <i class="bi bi-geo-alt me-2"></i>{{ event.location }}
+              </div>
+              <div class="text-muted">
+                <i class="bi bi-clock me-2"></i
+                >{{ event.dateTime | date : "short" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <span
+              class="px-3 py-1 rounded-pill text-sm"
+              [ngClass]="{
+                'bg-success-subtle text-success': event.status === 'Upcoming',
+                'bg-primary-subtle text-primary': event.status === 'Ongoing',
+                'bg-secondary-subtle text-secondary':
+                  event.status === 'Completed'
+              }"
+            >
+              {{ event.status }}
+            </span>
+
+            <div class="btn-group">
+              <button
+                class="btn btn-light rounded-start-pill"
+                (click)="editEvent(event._id)"
+              >
+                <i class="bi bi-pencil me-2"></i>Edit
+              </button>
+              <button
+                class="btn btn-danger rounded-end-pill"
+                (click)="deleteEvent(event._id)"
+              >
+                <i class="bi bi-trash me-2"></i>Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4 d-flex justify-content-center">
+      <pagination-controls
+        (pageChange)="currentPage = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
